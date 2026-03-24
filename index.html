@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Insane Chess</title>
+  </head>
+  <body>
+    <link rel="stylesheet" href="chessboard/css/chessboard-1.0.0.css"></style>
+    <link rel="icon" href="chessboard\img\chesspieces\wikipedia\wK.png" type="image/x-icon">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="chessboard/js/chessboard-1.0.0.js"></script>
+    <div id="board" style="width: 600px"></div>
+    <button id="startBtn">Start</button>
+    <button id="clearBtn">Clear</button>
+    <script>
+      var board = Chessboard('board', {
+        draggable: true,
+        dropOffBoard: 'trash',
+        sparePieces: true
+      })
+      $('#startBtn').on('click', board.start)
+      $('#clearBtn').on('click', board.clear)
+    </script>
+  </body>
+</html>
