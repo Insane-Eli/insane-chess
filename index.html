@@ -12,12 +12,12 @@
     <div id="myBoard" style="width: 400px"></div>
     <label>Status:</label>
     <div id="status"></div>
-    <label>FEN:</label>
+    <label>FEN:</label> 
     <div id="fen"></div>
-    <label>PGN:</label>
+    <label>PGN:</label> 
     <div id="pgn"></div>
-    <button id="startBtn" onclick="updateStatus()">Start Position</button>
-    <button id="clearBtn" onclick="updateStatus()">Clear Board</button>
+    <button id="startBtn" onclick="resetGame()">Start Position</button>
+    <button id="clearBtn" onclick="clearGame()">Clear Board</button>
     <script>
       // NOTE: this example uses the chess.js library:
       // https://github.com/jhlywa/chess.js
@@ -101,13 +101,19 @@
         onSnapEnd: onSnapEnd
       }
       board = Chessboard('myBoard', config)
-      var $startBtn = $('#startBtn').on('click', function () {
-        board.start
-      })
+      var $startBtn = $('#startBtn').on('click', board.start)
       var $clearBtn = $('#clearBtn').on('click', board.clear)
-
-      
       updateStatus()
+
+      function resetGame () {
+        game = new Chess()
+        updateStatus()
+      }
+
+      function clearGame () {
+        game = new Chess('8/8/8/8/8/8/8/8 b - - 0 1')
+        updateStatus()
+      }
     </script>
   </body>
 </html>
