@@ -5,6 +5,7 @@
 // Released under the MIT license
 // https://github.com/oakmac/chessboardjs/blob/master/LICENSE.md
 
+
 // start anonymous scope
 ;(function () {
   'use strict'
