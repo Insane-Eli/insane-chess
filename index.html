@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="chessboard/js/chessboard-1.0.0.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js" integrity="sha384-aH7F59TKSh8OEAivbclch9UUnWn/Uy8AQlYYKzpVaQkAp8W6IF2VocW/knEeRwT0" crossorigin="anonymous"></script> 
-    <div id="myBoard" style="width: 400px"></div>
+    <div id="myBoard" style="width: 800px"></div>
     <label>Status:</label>
     <div id="status"></div>
     <label>FEN:</label> 
@@ -18,6 +18,8 @@
     <div id="pgn"></div>
     <button id="startBtn" onclick="resetGame()">Start Position</button>
     <button id="clearBtn" onclick="clearGame()">Clear Board</button>
+    <button id="flipBtn" onclick="flipGame()">Flip Board</button>
+
     <script>
       // NOTE: this example uses the chess.js library:
       // https://github.com/jhlywa/chess.js
@@ -98,11 +100,14 @@
         position: 'start',
         onDragStart: onDragStart,
         onDrop: onDrop,
-        onSnapEnd: onSnapEnd
+        onSnapEnd: onSnapEnd,
+        // dropOffBoard: 'trash',
+        // sparePieces: true
       }
       board = Chessboard('myBoard', config)
       var $startBtn = $('#startBtn').on('click', board.start)
       var $clearBtn = $('#clearBtn').on('click', board.clear)
+      var $flipBtn = $('#flipBtn').on('click', board.flip)
       updateStatus()
 
       function resetGame () {
@@ -112,6 +117,10 @@
 
       function clearGame () {
         game = new Chess('8/8/8/8/8/8/8/8 b - - 0 1')
+        updateStatus()
+      }
+
+      function flipGame () {
         updateStatus()
       }
     </script>
