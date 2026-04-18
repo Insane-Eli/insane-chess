@@ -5,11 +5,24 @@ let clearBtn = document.getElementById("clearBtn");
 let flipBtn = document.getElementById("flipBtn");
 
 startBtn.addEventListener("click", () => {
-  socket.emit("startGame");
+  socket.emit("resetGame");
 });
 
-socket.on("startGame", () => {
+socket.on("resetGame", () => {
   resetGame();
+});
+
+clearBtn.addEventListener("click", () => {
+  socket.emit("clearGame");
+});
+
+socket.on("clearGame", () => {
+  clearGame();
+});
+
+socket.on("updateFEN", (fen) => {
+  game.load(fen);
+  board.position(fen);
 });
 
 // NOTE: this example uses the chess.js library:
@@ -85,6 +98,7 @@ function updateStatus() {
   $status.html(status);
   $fen.html(game.fen());
   $pgn.html(game.pgn());
+  socket.emit("updateFEN", game.fen());
 }
 
 var config = {

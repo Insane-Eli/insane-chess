@@ -14,13 +14,23 @@ server.listen(port, () => {
   console.log("Server up on port", port);
 });
 
+let fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
 io.on("connection", (socket) => {
   console.log("user connected");
+  io.emit("updateFEN", fen);
+
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });
-  socket.on("startGame", () => {
-    io.emit("startGame");
+  socket.on("resetGame", () => {
+    io.emit("resetGame");
   });
-  socket.on("move");
+  socket.on("clearGame", () => {
+    io.emit("clearGame");
+  });
+  socket.on("updateFEN", (newFEN) => {
+    fen = newFEN;
+    io.emit("updateFEN", newFEN);
+  });
 });
