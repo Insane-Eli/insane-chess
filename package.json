@@ -1,5 +1,24 @@
 {
+  "name": "insane-chess",
+  "version": "1.0.0",
+  "description": "https://github.com/oakmac/chessboardjs https://github.com/jhlywa/chess.js https://srihash.org/",
+  "homepage": "https://github.com/Insane-Eli/insane-chess#readme",
+  "bugs": {
+    "url": "https://github.com/Insane-Eli/insane-chess/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Insane-Eli/insane-chess.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "chess.js": "^1.4.0"
-  }
+  },
+  "devDependencies": {}
 }
