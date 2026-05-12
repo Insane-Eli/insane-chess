@@ -3,6 +3,7 @@ const http = require("http");
 const express = require("express");
 const socketIO = require("socket.io");
 
+
 const publicPath = path.join(__dirname, "../");
 const port = process.env.PORT || 3000;
 let app = express();
@@ -14,23 +15,30 @@ server.listen(port, () => {
   console.log("Server up on port", port);
 });
 
-let fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+var pgn = "";
 
 io.on("connection", (socket) => {
   console.log("user connected");
-  io.emit("updateFEN", fen);
+  io.emit("refreshBoard", pgn);
 
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });
+
   socket.on("resetGame", () => {
     io.emit("resetGame");
   });
+
   socket.on("clearGame", () => {
     io.emit("clearGame");
   });
-  socket.on("updateFEN", (newFEN) => {
-    fen = newFEN;
-    io.emit("updateFEN", newFEN);
+
+  socket.on("newMove", (newMove) => {
+    io.emit("newMove", newMove);
+  });
+
+  socket.on("updateBoard", (newPgn) => {
+    pgn = newPgn
+    io.emit("refreshBoard", pgn);
   });
 });
