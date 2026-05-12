@@ -33,12 +33,8 @@ io.on("connection", (socket) => {
     io.emit("clearGame");
   });
 
-  socket.on("newMove", (newMove) => {
-    io.emit("newMove", newMove);
-  });
-
-  socket.on("updateBoard", (newPgn) => {
+  socket.on("newMove", (newMove, newPgn) => {
     pgn = newPgn
-    io.emit("refreshBoard", pgn);
+    io.emit("newMove", newMove, pgn);
   });
 });

@@ -20,17 +20,19 @@ socket.on("clearGame", () => {
   clearGame();
 });
 
-socket.on("newMove", (move) => {
+socket.on("refreshBoard", (serverPgn) => {
+  game.load_pgn(serverPgn)
+  board.position(game.fen())
+  updateStatus()
+});
+
+socket.on("newMove", (move, serverPgn) => {
   game.move(move)
+  game.load_pgn(serverPgn);
   board.position(game.fen())
   updateStatus();
 });
 
-socket.on("refreshBoard", (serverPgn) => {
-  game.load_pgn(serverPgn);
-  board.position(game.fen());
-  updateStatus();
-});
 
 // NOTE: this example uses the chess.js library:
 // https://github.com/jhlywa/chess.js
@@ -65,7 +67,7 @@ function onDrop(source, target) {
   // illegal move
   if (move === null) return "snapback";
 
-  socket.emit("newMove", move);
+  socket.emit("newMove", move, game.pgn());
 
   updateStatus();
 }
